@@ -25,7 +25,7 @@ team_struct team =
       Your login ID if working as a one person team
       or, ID1+ID2 where ID1 is the login ID of the first team member
       and ID2 is the login ID of the second team member */
-    "A00957898+", 
+    "A00957898+A01205668", 
    /* Student name 1: Replace with the full name of first team member */
    "Jeffrey Lunt",
    /* Login ID 1: Replace with the login ID of first team member */
@@ -33,9 +33,9 @@ team_struct team =
 
    /* The following should only be changed if there are two team members */
    /* Student name 2: Full name of the second team member */
-   "",
+   "Tyler Wilson",
    /* Login ID 2: Login ID of the second team member */
-   ""
+   "A01205668"
 };
 
 #if 0
