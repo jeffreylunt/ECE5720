@@ -33,7 +33,7 @@ team_struct team =
 
    /* The following should only be changed if there are two team members */
    /* Student name 2: Full name of the second team member */
-   "Tyler Wilson",
+   "Tyler Jay Wilson",
    /* Login ID 2: Login ID of the second team member */
    "A01205668"
 };
