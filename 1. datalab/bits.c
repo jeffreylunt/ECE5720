@@ -27,7 +27,7 @@ team_struct team =
       and ID2 is the login ID of the second team member */
     "A00957898+A01205668", 
    /* Student name 1: Replace with the full name of first team member */
-   "Jeffrey Lunt",
+   "Jeffrey W Lunt",
    /* Login ID 1: Replace with the login ID of first team member */
    "A00957898",
 
