@@ -140,9 +140,9 @@ NOTES:
  *   Rating: 1
  */
 int bitNor(int x, int y) {
-/* JEFFF! so if i understand this correctly i want to do something like this */
-	x = (~x) & (~y); 	
-  return x;
+/* JEFFF! so if i understand this correctly i want to do something like this */	
+/* Just one line of code hopefully */	
+  return ((~x) & (~y));
 }
 
 /* 
