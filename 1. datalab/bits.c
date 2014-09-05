@@ -153,7 +153,11 @@ int bitNor(int x, int y) {
  *   Rating: 2
  */
 int bitXor(int x, int y) {
-  return 2;
+/* This one was a little more difficult but i think it's right*/
+  int r1 = (~x) & y;	//result 1
+  int r2 = (~y) & x;	//result 2
+
+  return ~((~r1) & (~r2));
 }
 /* 
  * isNotEqual - return 0 if x == y, and 1 otherwise 
@@ -163,6 +167,9 @@ int bitXor(int x, int y) {
  *   Rating: 2
  */
 int isNotEqual(int x, int y) {
+//my head hurts now!
+  int r1 = ~x; 
+  
   return 2;
 }
 /* 
