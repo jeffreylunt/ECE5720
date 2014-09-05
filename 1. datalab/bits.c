@@ -33,7 +33,7 @@ team_struct team =
 
    /* The following should only be changed if there are two team members */
    /* Student name 2: Full name of the second team member */
-   "Tyler Wilson",
+   "Tyler J Wilson",
    /* Login ID 2: Login ID of the second team member */
    "A01205668"
 };
@@ -141,7 +141,7 @@ NOTES:
  */
 int bitNor(int x, int y) {
 /* JEFFF! so if i understand this correctly i want to do something like this */	
-/* Just one line of code hopefully */	
+/* Just one line of code hopefully and we are done*/	
   return ((~x) & (~y));
 }
 
