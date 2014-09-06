@@ -167,10 +167,8 @@ int bitXor(int x, int y) {
  *   Rating: 2
  */
 int isNotEqual(int x, int y) {
-//my head hurts now!
-  int r1 = ~x; 
   
-  return 2;
+  return (0x1 & (!(x^y))); //do an exclusive OR. If the two values are the same then the result is 0x0. We do a logical NOT to return true.
 }
 /* 
  * getByte - Extract byte n from word x
@@ -181,7 +179,10 @@ int isNotEqual(int x, int y) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-  return 2;
+  n = n << 3; //shift n bitwise 3 times to get multiples of two (0, 8, 16, 24)
+  x = x >> n; //right bitwise shift n times to get the wanted byte as the LSB
+ 
+  return (x & 0x000000FF); //Ignore the 3 MSB
 }
 /* 
  * copyLSB - set all bits of result to least significant bit of x
@@ -191,7 +192,8 @@ int getByte(int x, int n) {
  *   Rating: 2
  */
 int copyLSB(int x) {
-  return 2;
+ 
+  return ((x << 31) >> 31); //shift left 31 times to remove all bits but the LSB. Shift right 31 times to copy it to all bit holders
 }
 /* 
  * logicalShift - shift x to the right by n, using a logical shift
@@ -202,7 +204,9 @@ int copyLSB(int x) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 2;
+  //we need to shift by n but mask the new bits that were shifted in
+  
+  return x>>n;
 }
 /*
  * bitCount - returns count of number of 1's in word
