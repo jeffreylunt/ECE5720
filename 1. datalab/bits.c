@@ -140,9 +140,8 @@ NOTES:
  *   Rating: 1
  */
 int bitNor(int x, int y) {
-/* JEFFF! so if i understand this correctly i want to do something like this */	
-/* Just one line of code hopefully and we are done*/	
-  return ((~x) & (~y));
+	
+  return ((~x) & (~y)); //not both the x and the y to get the zero bits changed to ones. we then AND the zero (now 1's) to get a bitNor return.
 }
 
 /* 
@@ -153,9 +152,9 @@ int bitNor(int x, int y) {
  *   Rating: 2
  */
 int bitXor(int x, int y) {
-/* This one was a little more difficult but i think it's right*/
-  int r1 = (~x) & y;	//result 1
-  int r2 = (~y) & x;	//result 2
+
+  int r1 = (~x) & y;	//result 1 - not x AND y
+  int r2 = (~y) & x;	//result 2 - not y AND x
 
   return ~((~r1) & (~r2));
 }
@@ -169,6 +168,7 @@ int bitXor(int x, int y) {
 int isNotEqual(int x, int y) {
   
   return (0x1 & (!(x^y))); //do an exclusive OR. If the two values are the same then the result is 0x0. We do a logical NOT to return true.
+				//AND that result with 0x1 to return either 0x1 for true and 0x0 for false.
 }
 /* 
  * getByte - Extract byte n from word x
@@ -302,5 +302,14 @@ int abs(int x) {
  *   Rating: 3
  */
 int addOK(int x, int y) {
-  return 2;
+  
+//The sign of the sum of x + y must remain the same as the sign on x and y. If not, then overflow has occured
+  int signofsum = ((x + y)>>31) & 0x1);
+  int signofx = ((x>>31) & 0x1);
+  int signofy = ((y>>31) & 0x1);
+
+  //
+	
+	
+	return !(~(sign_x ^ sign_y) & (sign_x ^ sign_sum_xy));
 }
