@@ -205,7 +205,7 @@ int copyLSB(int x) {
  */
 int logicalShift(int x, int n) {
   //we need to shift by n but mask the new bits that were shifted in
-  
+  (x>>n)
   return x>>n;
 }
 /*
@@ -246,7 +246,10 @@ int leastBitPos(int x) {
  *   Rating: 1
  */
 int tmax(void) {
-  return 2;
+  
+  int max = 0x80000000;		//0x80000000 will give us the max two's complement integer
+	
+  return ~max;			//NOT this value to return the largest two's complement integer
 }
 /* 
  * isNonNegative - return 1 if x >= 0, return 0 otherwise 
@@ -256,7 +259,8 @@ int tmax(void) {
  *   Rating: 3
  */
 int isNonNegative(int x) {
-  return 2;
+
+  return !((x&80000000)>>31);
 }
 /* 
  * isGreater - if x > y  then return 1, else return 0 
