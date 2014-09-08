@@ -27,13 +27,13 @@ team_struct team =
       and ID2 is the login ID of the second team member */
     "A00957898+A01205668", 
    /* Student name 1: Replace with the full name of first team member */
-   "Jeffrey Lunt",
+   "Jeffrey W Lunt",
    /* Login ID 1: Replace with the login ID of first team member */
    "A00957898",
 
    /* The following should only be changed if there are two team members */
    /* Student name 2: Full name of the second team member */
-   "Tyler Jay Wilson",
+   "Tyler J Wilson",
    /* Login ID 2: Login ID of the second team member */
    "A01205668"
 };
@@ -140,7 +140,9 @@ NOTES:
  *   Rating: 1
  */
 int bitNor(int x, int y) {
-  return 2;
+/* JEFFF! so if i understand this correctly i want to do something like this */	
+/* Just one line of code hopefully and we are done*/	
+  return ((~x) & (~y));
 }
 
 /* 
@@ -151,7 +153,11 @@ int bitNor(int x, int y) {
  *   Rating: 2
  */
 int bitXor(int x, int y) {
-  return 2;
+/* This one was a little more difficult but i think it's right*/
+  int r1 = (~x) & y;	//result 1
+  int r2 = (~y) & x;	//result 2
+
+  return ~((~r1) & (~r2));
 }
 /* 
  * isNotEqual - return 0 if x == y, and 1 otherwise 
@@ -161,7 +167,8 @@ int bitXor(int x, int y) {
  *   Rating: 2
  */
 int isNotEqual(int x, int y) {
-  return 2;
+  
+  return (0x1 & (!(x^y))); //do an exclusive OR. If the two values are the same then the result is 0x0. We do a logical NOT to return true.
 }
 /* 
  * getByte - Extract byte n from word x
@@ -172,7 +179,10 @@ int isNotEqual(int x, int y) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-  return 2;
+  n = n << 3; //shift n bitwise 3 times to get multiples of two (0, 8, 16, 24)
+  x = x >> n; //right bitwise shift n times to get the wanted byte as the LSB
+ 
+  return (x & 0x000000FF); //Ignore the 3 MSB
 }
 /* 
  * copyLSB - set all bits of result to least significant bit of x
@@ -182,7 +192,8 @@ int getByte(int x, int n) {
  *   Rating: 2
  */
 int copyLSB(int x) {
-  return 2;
+ 
+  return ((x << 31) >> 31); //shift left 31 times to remove all bits but the LSB. Shift right 31 times to copy it to all bit holders
 }
 /* 
  * logicalShift - shift x to the right by n, using a logical shift
@@ -193,7 +204,9 @@ int copyLSB(int x) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 2;
+  //we need to shift by n but mask the new bits that were shifted in
+  
+  return x>>n;
 }
 /*
  * bitCount - returns count of number of 1's in word
