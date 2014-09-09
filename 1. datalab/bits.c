@@ -244,16 +244,6 @@ int bitCount(int x) {
 
 	return ;
 	
-	/*
-	int level1 = ( x & 0x55555555 ) + ( ( x >> 1 ) & 0x55555555 );
-	int level2 = ( x & 0x33333333 ) + ( ( x >> 2 ) & 0x33333333 );
-	int level3 = ( x & 0x0F0F0F0F ) + ( ( x >> 4 ) & 0x0F0F0F0F );
- 	int level4 = ( x & 0x00FF00FF ) + ( ( x >> 8 ) & 0x00FF00FF );
-	int level5 = ( x & 0x0000FFFF ) + ( ( x >> 16 ) & 0x0000FFFF );
-
-	return ( level1 + level2 + level3 + level4 + level5 );
-	*/
-	
 }
 /* 
  * bang - Compute !x without using !
