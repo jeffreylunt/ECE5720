@@ -218,7 +218,7 @@ int logicalShift(int x, int n) {
  *   Rating: 4
  */
 int bitCount(int x) {
-
+	
 	//with each level, two neighboring bits are joined together and shifted. The end result is the number of bits represented in binary
 	int maskVal1 = 0x55;
 	int maskVal2 = 0x33;
@@ -235,13 +235,24 @@ int bitCount(int x) {
 
 	int maskVal5 = (maskVal4 | (maskVal4 << 8));
 
-	int level1 = (x & maskVal1) + ((x >> 1) & maskVal1);
-	int level2 = (x & maskVal2) + ((x >> 2) & maskVal2);
-	int level3 = (x & maskVal3) + ((x >> 4) & maskVal3);
- 	int level4 = (x & maskVal4) + ((x >> 8) & maskVal4);
-	int level5 = (x & maskVal5) + ((x >> 16) & maskVal5);
+	int count = (x & maskVal1) + ((x >> 1) & maskVal1);
+	count = (x & maskVal2) + ((x >> 2) & maskVal2);
+	count = (x & maskVal3) + ((x >> 4) & maskVal3);
+ 	count = (x & maskVal4) + ((x >> 8) & maskVal4);
+	count = (x & maskVal5) + ((x >> 16) & maskVal5);
 
-	return level1 + level2 + level3 + level4 + level5;
+	return ;
+	
+	/*
+	int level1 = ( x & 0x55555555 ) + ( ( x >> 1 ) & 0x55555555 );
+	int level2 = ( x & 0x33333333 ) + ( ( x >> 2 ) & 0x33333333 );
+	int level3 = ( x & 0x0F0F0F0F ) + ( ( x >> 4 ) & 0x0F0F0F0F );
+ 	int level4 = ( x & 0x00FF00FF ) + ( ( x >> 8 ) & 0x00FF00FF );
+	int level5 = ( x & 0x0000FFFF ) + ( ( x >> 16 ) & 0x0000FFFF );
+
+	return ( level1 + level2 + level3 + level4 + level5 );
+	*/
+	
 }
 /* 
  * bang - Compute !x without using !
@@ -256,8 +267,11 @@ int bang(int x) {
 
 	//if the number is not zero, there will be a 1 in the most significant bit of either the normal x or the negative x (depending on if the original is negative or positive)
 	//so, we need to look at the most significant bit and return the OR of it.
+	
+	int XSign = ( x >> 31 ) & 0x1;
+	int negativeXSign = ( negativeX >> 31 ) & 0x1;
 
-	return ( ( x >> 31 ) & 0x1 ) | ( ( negativeX >> 31 ) & 0x1 );
+	return ( ( XSign | negativeXSign ) ^ 0x1 );
 }
 /* 
  * leastBitPos - return a mask that marks the position of the
