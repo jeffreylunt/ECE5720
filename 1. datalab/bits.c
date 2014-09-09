@@ -141,8 +141,8 @@ NOTES:
  */
 int bitNor(int x, int y) {
 
-  return ((~x) & (~y)); //not both the x and the y to get the zero bits changed to ones. we then AND the zero (now 1's) to get a bitNor return.
-
+  return ((~x) & (~y)); //not both the x and the y to get the zero bits changed to ones. 
+			// We then AND the zero (now 1's) to get a bitNor return.
 }
 
 /*
@@ -183,7 +183,7 @@ int getByte(int x, int n) {
   n = n << 3; //shift n bitwise 3 times to get multiples of two (0, 8, 16, 24)
   x = x >> n; //right bitwise shift n times to get the wanted byte as the LSB
  
-  return (x & 0x000000FF); //Ignore the 3 MSB
+  return (x & 0xFF); //Ignore the 3 MSB
 }
 /* 
  * copyLSB - set all bits of result to least significant bit of x
@@ -206,8 +206,9 @@ int copyLSB(int x) {
  */
 int logicalShift(int x, int n) {
   //we need to shift by n but mask the new bits that were shifted in (x>>n)
-
-  return ( x >> n & ( 0xFFFFFFFF << ( 32 + ( ~n + 1 ) ) ) );
+  //create 0xFFFFFFFF by placing a 1 as the MSB and then shifting 1's to the right.
+  int maskVal = ((0x1 << 31) >> 31)
+  return ( x >> n & ( maskVal << ( 32 + ( ~n + 1 ) ) ) );
 }
 /*
  * bitCount - returns count of number of 1's in word
@@ -219,11 +220,26 @@ int logicalShift(int x, int n) {
 int bitCount(int x) {
 
 	//with each level, two neighboring bits are joined together and shifted. The end result is the number of bits represented in binary
-	int level1 = ( x & 0x55555555 ) + ( ( x >> 1 ) & 0x55555555 );
-	int level2 = ( x & 0x33333333 ) + ( ( x >> 2 ) & 0x33333333 );
-	int level3 = ( x & 0x0f0f0f0f ) + ( ( x >> 4 ) & 0x0f0f0f0f );
- 	int level4 = ( x & 0x00ff00ff ) + ( ( x >> 8 ) & 0x00ff00ff );
-	int level5 = ( x & 0x0000FFFF ) + ( ( x >> 16 ) & 0x0000FFFF );
+	int maskVal1 = 0x55;
+	int maskVal2 = 0x33;
+	int maskVal3 = 0x0F;
+	int maskVal4 = 0xFF;
+	
+/*	This part of the code creates the different masking values that we want. We shift the bits and OR them in order to get 
+	the ones we want. */
+	
+	maskVal1 = maskVal1 | ((maskVal1 | ((maskVal1 | (maskVal1 << 8)) <<8)) <<8);
+	maskVal2 = maskVal2 | ((maskVal2 | ((maskVal2 | (maskVal2 << 8)) <<8)) <<8);
+	maskVal3 = maskVal3 | ((maskVal3 | ((maskVal3 | (maskVal3 << 8)) <<8)) <<8);
+	maskVal4 = (maskVal4 << 16) | maskVal4;
+
+	int maskVal5 = (maskVal4 | (maskVaal4 << 8));
+
+	int level1 = (x & maskVal1) + ((x >> 1) & maskVal1);
+	int level2 = (x & maskVal2) + ((x >> 2) & maskVal2);
+	int level3 = (x & maskVal3) + ((x >> 4) & maskVal3);
+ 	int level4 = (x & maskVal4) + ((x >> 8) & maskVal4);
+	int level5 = (x & maskVal5) + ((x >> 16) & maskVal5);
 
 	return level1 + level2 + level3 + level4 + level5;
 }
@@ -352,10 +368,14 @@ int abs(int x) {
  */
 int addOK(int x, int y) {
   
-//The sign of the sum of x + y must remain the same as the sign on x and y. If not, then overflow has occured
+//The sign of the sum of (x + y) must remain the same as the sign on x and y. If not, then overflow has occured
   int signofsum = (((x + y)>>31) & 0x1);
   int signofx = ((x>>31) & 0x1);
   int signofy = ((y>>31) & 0x1);
 
-	return !(~(signofx ^ signofy) & (signofx ^ signofsum));
+  return ((signofx ^ signofy) | (~(signofx ^ signofsum))); //we do an exclusive OR to compare the sign differences between x and y
+								//Also, we check the difference between x and the sum. We NOT the result. 
+								//If x and the sum have the same sign then we are safe. If they are not then
+								//we could be in trouble if x and y have the same sign.
+								//We OR the two results to get the final result of addOk true or false.
 }
