@@ -268,7 +268,11 @@ int bang(int x) {
  *   Rating: 4 
  */
 int leastBitPos(int x) {
-  return 2;
+  // We not x and add one. This places a 1 at the location of the first 1 bit.
+  int not_x = (~x) + 1;
+
+  // We AND the original value to not_x. This cancels out all the bits (places zeros in all the positions) except where the leastBitPos is.
+  return(x & not_x);
 }
 /* 
  * TMax - return maximum two's complement integer 
@@ -278,7 +282,7 @@ int leastBitPos(int x) {
  */
 int tmax(void) {
   
-  int max = 0x80000000;		//0x80000000 will give us the max two's complement integer
+  int max = (0x80)<<24;		//0x80000000 will give us the max two's complement integer
 	
   return ~max;			//NOT this value to return the largest two's complement integer
 }
@@ -291,7 +295,7 @@ int tmax(void) {
  */
 int isNonNegative(int x) {
 
-  return !((x&80000000)>>31);
+  return !((x&(80<<24))>>31);
 }
 /* 
  * isGreater - if x > y  then return 1, else return 0 
