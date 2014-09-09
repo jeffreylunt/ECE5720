@@ -285,7 +285,28 @@ int isNonNegative(int x) {
  *   Rating: 3
  */
 int isGreater(int x, int y) {
-  return 2;
+
+	//save off the sign bits
+	int signBitX = x >> 31;
+	int signBitY = y >> 31;
+
+	//there are four cases:
+	//1: signBitX = 0, signBitY = 0 (both positive)
+	//2: signBitX = 0, signBitY = 1 (x positive, y negative)
+	//3: signBitX = 1, signBitY = 0 (x negative, y positive)
+	//4: signBitX = 1, signBitY = 1 (both negative)
+
+	//if the signs aren't equal, then this value is 1 if x < y
+	int signsNotEqualandXltY = !signBitY & signBitX;
+
+	//if the sign bits are equal, then you can determine which number is larger by adding the inverse of one and looking at the sign bit
+	//x > y means that sign of ( x + ~y ) is 0
+	//x < y means that sign of ( x + ~ y ) is 1
+	int signBitofDifference = ( x + ~y ) >> 31;
+	int signsEqualandXltY = ( signBitX ^ signBitY ) & signBitofDifference;
+
+	return !( signsEqualandXltY | signsNotEqualandXltY );
+	
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
@@ -296,7 +317,13 @@ int isGreater(int x, int y) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    return x >> n + 1;
+
+	//any negative number is off by one...
+	int signBit = x >> 31;
+	
+	//the ( 0x1 << n ) + ~0 ) give a mask of the lower n bits, takes into account the case of the number being zero
+	//one is added only if the number is negative
+	return ( x + ( signBit & ( ( 0x1 << n ) + ~0 ) ) ) >> n;
 }
 /* 
  * abs - absolute value of x (except returns TMin for TMin)
