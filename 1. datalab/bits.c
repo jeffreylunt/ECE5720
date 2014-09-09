@@ -228,18 +228,18 @@ int bitCount(int x) {
 /*	This part of the code creates the different masking values that we want. We shift the bits and OR them in order to get 
 	the ones we want. */
 	
-	maskVal1 = maskVal1 | ((maskVal1 | ((maskVal1 | (maskVal1 << 8)) <<8)) <<8);
-	maskVal2 = maskVal2 | ((maskVal2 | ((maskVal2 | (maskVal2 << 8)) <<8)) <<8);
-	maskVal3 = maskVal3 | ((maskVal3 | ((maskVal3 | (maskVal3 << 8)) <<8)) <<8);
-	maskVal4 = (maskVal4 << 16) | maskVal4;
+	maskVal1 = maskVal1 | ( ( maskVal1 | ( ( maskVal1 | ( maskVal1 << 8 ) ) << 8 ) ) << 8 );
+	maskVal2 = maskVal2 | ( ( maskVal2 | ( ( maskVal2 | ( maskVal2 << 8 ) ) << 8 ) ) << 8 );
+	maskVal3 = maskVal3 | ( ( maskVal3 | ( ( maskVal3 | ( maskVal3 << 8 ) ) << 8 ) ) << 8 );
+	maskVal4 = ( maskVal4 << 16 ) | maskVal4;
 
-	int maskVal5 = (maskVal4 | (maskVal4 << 8));
+	int maskVal5 = ( maskVal4 | ( maskVal4 << 8 ) );
 
-	int count = (x & maskVal1) + ((x >> 1) & maskVal1);
-	count = (x & maskVal2) + ((x >> 2) & maskVal2);
-	count = (x & maskVal3) + ((x >> 4) & maskVal3);
- 	count = (x & maskVal4) + ((x >> 8) & maskVal4);
-	count = (x & maskVal5) + ((x >> 16) & maskVal5);
+	int count = ( x & maskVal1 ) + ( ( x >> 1 ) & maskVal1 );
+	count = ( x & maskVal2 ) + ( ( x >> 2 ) & maskVal2 );
+	count = ( x & maskVal3 ) + ( ( x >> 4 ) & maskVal3 );
+ 	count = ( x & maskVal4 ) + ( ( x >> 8 ) & maskVal4 );
+	count = ( x & maskVal5 ) + ( ( x >> 16 ) & maskVal5 );
 
 	return ;
 	
