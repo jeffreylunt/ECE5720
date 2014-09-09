@@ -206,9 +206,9 @@ int copyLSB(int x) {
  */
 int logicalShift(int x, int n) {
 
-  int shiftx = x >> n; //shift x by n
-  int not_n = (~n + 1) + 32; //mask the bits getting shifted in
-  return (shiftx & ((1 << (not_n) + ~0))); //
+  int shiftx = (x >> n); //shift x by n
+  int not_x = (~n + 1);
+  return ((shiftx) & ((1 << ((not_x) + 32)) + ~0));
 }
 /*
  * bitCount - returns count of number of 1's in word
