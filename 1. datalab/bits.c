@@ -372,13 +372,10 @@ int abs(int x) {
 int addOK(int x, int y) {
   
 //The sign of the sum of (x + y) must remain the same as the sign on x and y. If not, then overflow has occured
-  int signofsum = (((x + y)>>31) & 0x1);
-  int signofx = ((x>>31) & 0x1);
-  int signofy = ((y>>31) & 0x1);
+  int signofsum = (((x + y)>>31));
+  int signofx = ((x>>31));
+  int signofy = ((y>>31));
 
-  return ((signofx ^ signofy) | (~(signofx ^ signofsum))); //we do an exclusive OR to compare the sign differences between x and y
-								//Also, we check the difference between x and the sum. We NOT the result. 
-								//If x and the sum have the same sign then we are safe. If they are not then
-								//we could be in trouble if x and y have the same sign.
-								//We OR the two results to get the final result of addOk true or false.
+  return !((signofx ^ signofsum) & ~(signofx ^ signofy)); //We check to see if there is a sign difference between x and y
+							//We also check to see if there is a sign difference between x and the sum
 }
