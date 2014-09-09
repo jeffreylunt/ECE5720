@@ -257,7 +257,7 @@ int bang(int x) {
 	//if the number is not zero, there will be a 1 in the most significant bit of either the normal x or the negative x (depending on if the original is negative or positive)
 	//so, we need to look at the most significant bit and return the OR of it.
 
-	return ( ( x >> 32 ) & 0x1 ) | ( ( negativeX >> 32 ) & 0x1 );
+	return ( ( x >> 31 ) & 0x1 ) | ( ( negativeX >> 31 ) & 0x1 );
 }
 /* 
  * leastBitPos - return a mask that marks the position of the
