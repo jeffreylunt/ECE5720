@@ -205,10 +205,10 @@ int copyLSB(int x) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  //we need to shift by n but mask the new bits that were shifted in (x>>n)
-  //create 0xFFFFFFFF by placing a 1 as the MSB and then shifting 1's to the right.
-  int maskVal = ((0x1 << 31) >> 31);
-  return ( x >> n & ( maskVal << ( 32 + ( ~n + 1 ) ) ) );
+
+  int shiftx = x >> n; //shift x by n
+  int not_n = (~n + 1) + 32; //mask the bits getting shifted in
+  return (shiftx & ((1 << (not_n) + ~0)); //
 }
 /*
  * bitCount - returns count of number of 1's in word
@@ -309,7 +309,7 @@ int tmax(void) {
  */
 int isNonNegative(int x) {
 
-  return !((x&(80<<24))>>31);
+  return !((x&(0x80<<24))>>31);
 }
 /* 
  * isGreater - if x > y  then return 1, else return 0 
