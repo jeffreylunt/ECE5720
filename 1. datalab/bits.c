@@ -296,7 +296,7 @@ int isGreater(int x, int y) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    return 2;
+    return x >> n + 1;
 }
 /* 
  * abs - absolute value of x (except returns TMin for TMin)
@@ -306,7 +306,14 @@ int divpwr2(int x, int n) {
  *   Rating: 4
  */
 int abs(int x) {
-  return 2;
+
+	//this all has to do with the sign bit and the two's compliment
+	//we need to take the two's compliment if negative and do nothing if positive
+	int signBit = x >> 31;
+	int compliment = ~x + 1;
+	
+	//if negative, this addition will result in overflow in such a way that we are left with the absolute value. If positive, the 1 + ~signBit will be zero and we will be left with our original number
+	return 1 + ~signBit + ( x ^ signBit );
 }
 /* 
  * addOK - Determine if can compute x+y without overflow
@@ -323,7 +330,5 @@ int addOK(int x, int y) {
   int signofx = ((x>>31) & 0x1);
   int signofy = ((y>>31) & 0x1);
 
-  //this statement has variables that are undeclared
-	return 2; //temporary so it will compile
-	//return !(~(sign_x ^ sign_y) & (sign_x ^ sign_sum_xy));
+	return !(~(signofx ^ signofy) & (signofx ^ signofsum));
 }
