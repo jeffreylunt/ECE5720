@@ -323,10 +323,9 @@ int isGreater(int x, int y) {
 	//x > y means that sign of ( x + ~y ) is 0
 	//x < y means that sign of ( x + ~ y ) is 1
 	int signBitofDifference = ( x + ~y ) >> 31;
-	int signsEqualandXltY = ( signBitX ^ signBitY ) & signBitofDifference;
+	int signsEqualandXltY = !( signBitX ^ signBitY ) & signBitofDifference;
 
 	return !( signsEqualandXltY | signsNotEqualandXltY );
-	
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
