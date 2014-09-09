@@ -168,7 +168,8 @@ int bitXor(int x, int y) {
  */
 int isNotEqual(int x, int y) {
   
-  return (0x1 & (!(x^y))); //do an exclusive OR. If the two values are the same then the result is 0x0. We do a logical NOT to return true.
+	int XORED = x ^ y;
+  return ( !( !( XORED ) ) ); //do an exclusive OR. If the two values are the same then the result is 0x0. We do a logical NOT to return true.
 				//AND that result with 0x1 to return either 0x1 for true and 0x0 for false.
 }
 /* 
