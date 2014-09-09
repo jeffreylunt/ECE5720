@@ -207,7 +207,7 @@ int copyLSB(int x) {
 int logicalShift(int x, int n) {
   //we need to shift by n but mask the new bits that were shifted in (x>>n)
   //create 0xFFFFFFFF by placing a 1 as the MSB and then shifting 1's to the right.
-  int maskVal = ((0x1 << 31) >> 31)
+  int maskVal = ((0x1 << 31) >> 31);
   return ( x >> n & ( maskVal << ( 32 + ( ~n + 1 ) ) ) );
 }
 /*
