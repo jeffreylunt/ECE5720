@@ -233,7 +233,7 @@ int bitCount(int x) {
 	maskVal3 = maskVal3 | ((maskVal3 | ((maskVal3 | (maskVal3 << 8)) <<8)) <<8);
 	maskVal4 = (maskVal4 << 16) | maskVal4;
 
-	int maskVal5 = (maskVal4 | (maskVaal4 << 8));
+	int maskVal5 = (maskVal4 | (maskVal4 << 8));
 
 	int level1 = (x & maskVal1) + ((x >> 1) & maskVal1);
 	int level2 = (x & maskVal2) + ((x >> 2) & maskVal2);
