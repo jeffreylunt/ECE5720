@@ -205,9 +205,9 @@ int copyLSB(int x) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  //we need to shift by n but mask the new bits that were shifted in
-  (x>>n)
-  return x>>n;
+  //we need to shift by n but mask the new bits that were shifted in (x>>n)
+
+  return ( x >> n & ( 0xFFFFFFFF << ( 32 + ( ~n + 1 ) ) ) );
 }
 /*
  * bitCount - returns count of number of 1's in word
@@ -236,7 +236,12 @@ int bitCount(int x) {
  */
 int bang(int x) {
 
-	return 2;
+	int negativeX = ~x + 1; //this is the two's compliment
+
+	//if the number is not zero, there will be a 1 in the most significant bit of either the normal x or the negative x (depending on if the original is negative or positive)
+	//so, we need to look at the most significant bit and return the OR of it.
+
+	return ( ( x >> 32 ) & 0x1 ) | ( ( negativeX >> 32 ) & 0x1 );
 }
 /* 
  * leastBitPos - return a mask that marks the position of the
@@ -314,12 +319,11 @@ int abs(int x) {
 int addOK(int x, int y) {
   
 //The sign of the sum of x + y must remain the same as the sign on x and y. If not, then overflow has occured
-  int signofsum = ((x + y)>>31) & 0x1);
+  int signofsum = (((x + y)>>31) & 0x1);
   int signofx = ((x>>31) & 0x1);
   int signofy = ((y>>31) & 0x1);
 
-  //
-	
-	
-	return !(~(sign_x ^ sign_y) & (sign_x ^ sign_sum_xy));
+  //this statement has variables that are undeclared
+	return 2; //temporary so it will compile
+	//return !(~(sign_x ^ sign_y) & (sign_x ^ sign_sum_xy));
 }
