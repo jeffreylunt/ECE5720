@@ -141,12 +141,12 @@ NOTES:
  */
 int bitNor(int x, int y) {
 /* JEFFF! so if i understand this correctly i want to do something like this */	
-/* Just one line of code hopefully and we are done*/	
+/* Just one line of code hopefully and we are done*/
   return ((~x) & (~y));
 }
 
-/* 
- * bitXor - x^y using only ~ and & 
+/*
+ * bitXor - x^y using only ~ and &
  *   Example: bitXor(4, 5) = 1
  *   Legal ops: ~ &
  *   Max ops: 14
@@ -217,6 +217,7 @@ int logicalShift(int x, int n) {
  */
 int bitCount(int x) {
 
+	//with each level, two neighboring bits are joined together and shifted. The end result is the number of bits represented in binary
 	int level1 = ( x & 0x55555555 ) + ( ( x >> 1 ) & 0x55555555 );
 	int level2 = ( x & 0x33333333 ) + ( ( x >> 2 ) & 0x33333333 );
 	int level3 = ( x & 0x0f0f0f0f ) + ( ( x >> 4 ) & 0x0f0f0f0f );
@@ -233,7 +234,8 @@ int bitCount(int x) {
  *   Rating: 4 
  */
 int bang(int x) {
-  return 2;
+
+	return 2;
 }
 /* 
  * leastBitPos - return a mask that marks the position of the
